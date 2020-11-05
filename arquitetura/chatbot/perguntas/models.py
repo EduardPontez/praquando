@@ -3,8 +3,8 @@ from django.db import models
 # Create your models here.
 class Pergunta(models.Model):
     code = models.CharField(max_Length = 15)
-    code_user - models.CharField(max_Length = 15)
-    ative = models.IntegerField()
+    code_user = models.CharField(max_Length = 15)
+    active = models.IntegerField()
     
     code_relation = models.CharField(max_Length = 15)
     '''

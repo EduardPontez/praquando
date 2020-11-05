@@ -8,7 +8,8 @@ class Captura(models.Model):
 
     code_user = models.CharField(max_length = 15)
     #Código do usuário pois cada um deles terá sua própria página de capturas
-     
+    # Relacionar aplicativo de perguntas com usuários cadastrados
+    
     active = models.IntegerField()
     """Se o usuário estiver ativo, recebe 1, caso contrário recebe 0, impossibilitando
         usuários inativos a acessarem recursos da aplicação.
