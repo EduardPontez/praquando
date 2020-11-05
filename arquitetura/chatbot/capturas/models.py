@@ -15,10 +15,10 @@ class Captura(models.Model):
         Este campo estará em todas as tabelas que tiverem interação com o usuário
     """
 
-    name = models.CharField(max_length = 100)
+    name = models.CharField(max_Length = 100)
     age = models.IntegerField()
-    sex = models.CharField(max_length = 10)
-    email = models.CharField(max_length = 100)
+    sex = models.CharField(max_Length = 10)
+    email = models.CharField(max_Length = 100)
     cellphone = models.CharField(max_Length = 15) #telefone celular
     phone = models.CharField(max_Length = 10) #telefone fixo
     cep = models.CharField(max_Length = 10) #cep - exemplo: 04538-133
