@@ -3,10 +3,10 @@ from django.db import models
 # Create your models here.
 class Captura(models.Model):
 
-    code = models.CharField(max_length = 15)
+    code = models.CharField(max_Length = 15)
     #CharField - tipo de campo do SQLite através de classe Python
 
-    code_user = models.CharField(max_length = 15)
+    code_user = models.CharField(max_Length = 15)
     #Código do usuário pois cada um deles terá sua própria página de capturas
     # Relacionar aplicativo de perguntas com usuários cadastrados
     
