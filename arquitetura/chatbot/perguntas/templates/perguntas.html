@@ -11,7 +11,7 @@
 	<meta http-equiv='expires' content='0'>
 	<meta http-equiv='pragma' content='no-cache'>
 
-	<title>Capturas</title>
+	<title>Perguntas</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm bg-dark">
@@ -54,39 +54,22 @@
 			<table class=table>
 				<thead>
 					<tr>
-						<th>Nome</th>
-						<th>Idade</th>
-						<th>Sexo</th>
-						<th>E-mail</th>
-						<th>Celular</th>
-						<th>Telefone</th>
-						<th>CEP</th>
-						<th>Cidade</th>
-						<th>UF</th>
-						<th>Bairro</th>
-						<th>Endereço</th>
-						<th>Número</th>
-						<th>CPF</th>
-						<th>CNPJ</th>
+						<th>ID</th>
+						<th>Pergunta</th>
+						<th>OPÇÕES</th>
+
 					</tr>
 				</thead>
 				<tbody>
-					{% for captura in capturas %}
+					{% for pergunta in perguntas %}
 					<tr>
-						<td nowrap="true">{{captura.name}}</td>
-						<td nowrap="true">{{captura.age}}</td>
-						<td nowrap="true">{{captura.sex}}</td>
-						<td nowrap="true">{{captura.email}}</td>
-						<td nowrap="true">{{captura.cellphone}}</td>
-						<td nowrap="true">{{captura.phone}}</td>
-						<td nowrap="true">{{captura.cep}}</td>
-						<td nowrap="true">{{captura.city}}</td>
-						<td nowrap="true">{{captura.state}}</td>
-						<td nowrap="true">{{captura.neighborhood}}</td>
-						<td nowrap="true">{{captura.address}}</td>
-						<td nowrap="true">{{captura.number}}</td>
-						<td nowrap="true">{{captura.cpf}}</td>
-						<td nowrap="true">{{captura.cnpj}}</td>
+						<td nowrap="true">{{pergunta.id}}</td>
+						<td nowrap="true">{{pergunta.question}}</td>
+						<td nowrap="true">
+							<a href="/perguntas/edicao/{{pergunta.id}}" class="btn btn-primary" role="button">Editar</a>
+
+							<a href="/perguntas/delecao/{{pergunta.id}}" class="btn btn-danger" role="button">Deletar</a>
+						</td>
 					</tr>
 					{% endfor %}
 				</tbody>
