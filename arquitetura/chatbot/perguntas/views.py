@@ -132,7 +132,7 @@ def question(request, code_user, code_before, question):
 		# idade
 		import re
 		if 'anos' in qTemp:
-			idade = qTemp[qTemp.index('anos')-8:qTemp.index(anos)]
+			idade = qTemp[qTemp.index('anos')-8:qTemp.index('anos')]
 			idade = int(re.sub('[^0-9]', '', idade))
 		else:
 			tokens = qTemp.split(' ')
@@ -180,7 +180,7 @@ def question(request, code_user, code_before, question):
 		tokens = qTemp.split(' ')
 		for token in tokens:
 			parts = re.sub('[^0-9]', '', token)
-			if len(parts) == 11:
+			if len(parts) == 14:
 				from validate_docbr import CNPJ
 				objCNPJ = CNPJ()
 				if objCNPJ.validate(parts):
@@ -221,7 +221,7 @@ def question(request, code_user, code_before, question):
 					cidade = res.localidade[:res.localidade.index('/')].strip()
 					bairro = res.bairro.strip()
 					endereco = res.logradouro.strip()
-					numero = re.sub('[^0-9]', '', res.logradouro)
+					numero = re.sub('[^0-9/]', '', res.logradouro)
 		
 
 		# telefone fixo
@@ -263,6 +263,7 @@ def question(request, code_user, code_before, question):
 			)
 
 			captura.save()
+			
 			lista.append({
 				'code_current' : 0,
 				'code_user' : code_user,
