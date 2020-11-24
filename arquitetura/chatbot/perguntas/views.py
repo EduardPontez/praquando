@@ -372,3 +372,8 @@ def question(request, code_user, code_before, question):
 			lista = correspondente
 
 		return JsonResponse(lista, safe=False) 
+
+
+def api(request, code_user):
+	titulo = 'API de Integração'
+	return render(request, 'api.html', {'titulo' : titulo, 'code_user' : code_user})
