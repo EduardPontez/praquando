@@ -64,3 +64,58 @@ def salvarNovo(request):
 
 	p.save()
 	return render(request, 'redirecionar.html', {'code_user' : code_user})
+
+
+def edicao(request, id):
+	titulo = 'Edição de Perguntas e Respostas'
+	global codeUser
+	todas = Pergunta.objects.filter(code_user = code_user)
+	pergunta = Pergunta.objects.get(id = id)
+	return render(request, 'edicaoPerguntas.html', 
+		         {'titulo' : titulo, 'perguntas' : pergunta, 'todas' : todas, 'code_user' : codeUser})
+
+
+@csrf_protect
+def salvarEdicao(request):
+	id = int(request.POST.get("id"))
+	code_user = request.POST.get("code_user")
+	code_relation = request.POST.get("code_relation")
+	question = request.POST.get("question")
+	answer = request.POST.get("answer")
+
+	Pergunta.objects.filter(id=id).update(
+		code = code,
+		code_user = code_user,
+		active = active,
+		code_relation = code_relation,
+		question = question,
+		answer = answer
+	)
+
+	return render(request, 'redirecionar.html', {'code_user' : code_user})
+
+
+def delecao(request, id):
+	titulo = 'Deleção de Perguntas e Respostas'
+	global codeUser
+	todas = Pergunta.objects.filter(code_user = code_user)
+	pergunta = Pergunta.objects.get(id = id)
+	return render(request, 'delecaoPerguntas.html', 
+	         	 {'titulo' : titulo, 'perguntas' : pergunta, 'todas' : todas, 'code_user' : codeUser})
+
+@csrf_protect
+def salvarDelecao(request):
+	id = int(request.POST.get("id"))
+	code_user = request.POST.get("code_user")
+	Pergunta.objects.filter(id = id).delete()
+
+	return render(request, 'redirecionar.html', {'code_user' : code_user})
+
+
+def chatbot(request, code_user):
+	titulo = 'Chatbot'
+	return render(request, 'chatbot.html', 
+				 {'titulo' : titulo, 'code_user' : code_user})
+
+
+
