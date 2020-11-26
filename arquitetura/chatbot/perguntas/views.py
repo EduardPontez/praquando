@@ -331,14 +331,14 @@ def question(request, code_user, code_before, question):
 			for x in lista:
 				# remove acentuação e espaços
 				questao_encontrada = unidecode(x['question'])
-				questao_recebida.replace('?', '')
+				questao_encontrada.replace('?', '')
 				questao_encontrada.questao_encontrada.strip()
 
 				# coloca em minúsculas
 				questao_encontrada = questao_encontrada.lower()
 
 				#elimina as três últimas letras de cada palavra com tokenização
-				templ = questao_recebida.split(' ')
+				templ = questao_encontrada.split(' ')
 				temp2 = list()
 
 				for y in templ:
