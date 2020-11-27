@@ -69,7 +69,7 @@ def salvarNovo(request):
 def edicao(request, id):
 	titulo = 'Edição de Perguntas e Respostas'
 	global codeUser
-	todas = Pergunta.objects.filter(code_user = code_user)
+	todas = Pergunta.objects.filter(code_user = codeUser)
 	pergunta = Pergunta.objects.get(id = id)
 	return render(request, 'edicaoPerguntas.html', 
 		         {'titulo' : titulo, 'perguntas' : pergunta, 'todas' : todas, 'code_user' : codeUser})
@@ -98,7 +98,7 @@ def salvarEdicao(request):
 def delecao(request, id):
 	titulo = 'Deleção de Perguntas e Respostas'
 	global codeUser
-	todas = Pergunta.objects.filter(code_user = code_user)
+	todas = Pergunta.objects.filter(code_user = codeUser)
 	pergunta = Pergunta.objects.get(id = id)
 	return render(request, 'delecaoPerguntas.html', 
 	         	 {'titulo' : titulo, 'perguntas' : pergunta, 'todas' : todas, 'code_user' : codeUser})
