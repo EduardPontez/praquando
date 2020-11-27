@@ -118,7 +118,7 @@ def chatbot(request, code_user):
 				 {'titulo' : titulo, 'code_user' : code_user})
 
 # nlp - processamento de linguagem natural
-def question(request, code_user, code_before, question):
+def questao(request, code_user, code_before, question):
 	question = question.replace('%20', ' ')
 	qTemp = question.lower()
 	if code_before > 0:

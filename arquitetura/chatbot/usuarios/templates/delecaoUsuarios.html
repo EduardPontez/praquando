@@ -49,24 +49,24 @@
 			<input type="hidden" name="code" value="{{usuarios.code}}">
 			
 			<div class="form-group">
-				<label for="question">Nome:</label>
+				<label for="name">Nome:</label>
 				<input type="text" class="form-control" name="name" id="name" value="{{usuarios.name}}" disabled="true">
 			</div>
 
 			<div class="form-group">
 				<label for="email">E-mail:</label>
-				<input type="email" class="form-control" name="name" id="email" value="{{usuarios.email}}" disabled="true">
+				<input type="email" class="form-control" name="email" id="email" value="{{usuarios.email}}" disabled="true">
 			</div>
 
 			<div class="form-group">
 				<label for="user">Usuário:</label>
-				<input type="text" class="form-control" name="name" id="user" value="{{usuarios.user}}" disabled="true">
+				<input type="text" class="form-control" name="user" id="user" value="{{usuarios.user}}" disabled="true">
 			</div>
 
 
 			<div class="form-group">
 				<label for="user">Senha:</label>
-				<input type="text" class="form-control" name="password" id="password" value="{{usuarios.password}}" disabled="true">
+				<input type="password" class="form-control" name="password" id="password" value="{{usuarios.password}}" disabled="true">
 			</div>
 
 
@@ -83,7 +83,7 @@
 	</div>
 	<script>
 		const active = document.getElementById('active');
-		code_relation.value = "{{usuarios.active}}";
+		active.value = "{{usuarios.active}}";
 	</script>
 </body>
 </html>

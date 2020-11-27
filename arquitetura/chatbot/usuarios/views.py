@@ -23,17 +23,17 @@ def entrar(request):
 
 
 	# super usuário (administrador do sistema)
-	if user == 'uninove' and password = 'w@r82jk1':
+	if user == 'uninove' and password == 'w@r82jk1':
 		global ok
 		ok = 1
-		titulo = 'Cadastro de Usuário'
+		titulo = 'Cadastro de Usuários'
 		usuarios = Usuario.objects.all()
 		return render(request, 'usuarios.html', 
 			         {'titulo' : titulo, 'usuarios' : usuarios, 'ok' : ok})
 	else:
 		usuario = Usuario.objects.filter(user=user, password=password, active=1)
 		code_user = 0
-		if len(usuarios) > 0:
+		if len(usuario) > 0:
 			for x in usuario:
 				code_user = x.code
 			return render(request, 'entrando.html', {'code_user' : code_user})
@@ -108,7 +108,7 @@ def edicao(request, id):
 	titulo = 'Edição de Usuários'
 	usuario = Usuario.objects.get(id=id)
 	global ok
-	return render(request, 'edicaoUsuarios.html', {'titulo' : titulo 'usuarios' : usuario 'ok' : ok})
+	return render(request, 'edicaoUsuarios.html', {'titulo' : titulo, 'usuarios' : usuario, 'ok' : ok})
 
 
 @csrf_protect
@@ -146,7 +146,7 @@ def delecao(request, id):
 	titulo = 'Deleção de Usuários'
 	usuario = Usuario.objects.get(id=id)
 	global ok
-	return render(request, 'delecaoUsuarios.html' {'titulo' : 'usuarios' : usuario, 'ok' : ok})
+	return render(request, 'delecaoUsuarios.html', {'titulo' : titulo, 'usuarios' : usuario, 'ok' : ok})
 
 
 @csrf_protect

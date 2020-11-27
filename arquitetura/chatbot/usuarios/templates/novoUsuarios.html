@@ -1,6 +1,7 @@
 <script>
 	if({{ok}} !=1) window.location.href = "/home";
 </script>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,26 +48,25 @@
 		<form action="/usuarios/salvarNovo/" method="POST" name="frmUsuariosNovo">{% csrf_token %}
 
 			<div class="form-group">
-				<label for="question">Nome:</label>
+				<label for="name">Nome:</label>
 				<input type="text" class="form-control" name="name" id="name" value="">
 			</div>
 
 			<div class="form-group">
 				<label for="email">E-mail:</label>
-				<input type="email" class="form-control" name="name" id="email" value="">
+				<input type="email" class="form-control" name="email" id="email" value="">
 			</div>
 
 			<div class="form-group">
 				<label for="user">Usuário:</label>
-				<input type="text" class="form-control" name="name" id="user" value="">
+				<input type="text" class="form-control" name="user" id="user" value="">
 			</div>
 
 
 			<div class="form-group">
-				<label for="user">Senha:</label>
-				<input type="text" class="form-control" name="password" id="password" value="">
+				<label for="password">Senha:</label>
+				<input type="password" class="form-control" name="password" id="password" value="">
 			</div>
-
 
 			<div class="form-group">
 				<select class="form-control" name="active" id="active">

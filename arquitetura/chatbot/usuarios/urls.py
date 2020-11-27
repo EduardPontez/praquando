@@ -23,11 +23,11 @@ urlpatterns = [
 	path('', usuarios),
 	path('usuario/<int:code>/', usuario),
 	path('novo/', novo),
-	path('salvarNovo/', perguntas),
+	path('salvarNovo/', salvarNovo),
 	path('edicao/<int:id>/', edicao),
 	path('salvarEdicao/', salvarEdicao),
 	path('delecao/<int:id>/', delecao),
-	path('salvarDelecao/', salvarDelecao),
+	path('salvarDelecao/', salvarDelecao)
 
 	#Paths sem parâmetros serão capturados via POST
 	#Path é inteligente o sificiente no Django para diferenciar POST de GET

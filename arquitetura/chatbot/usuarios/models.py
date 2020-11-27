@@ -9,7 +9,6 @@ class Usuario(models.Model):
     active = models.IntegerField()
     name = models.CharField(max_length = 100)
     email = models.CharField(max_length = 100)
-    email = models.CharField(max_length = 100)
     user = models.CharField(max_length = 50)
     password = models.CharField(max_length = 10)
     
