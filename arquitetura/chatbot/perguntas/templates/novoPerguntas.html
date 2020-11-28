@@ -26,7 +26,7 @@
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link" href="#" onclick="window.open('http://127.0.0.1.8000/perguntas/chatbot/{{code_user}}', '', 'width=410, height=450')">Chatbot</a> 
+				<a class="nav-link" href="#" onclick="window.open('http://127.0.0.1:8000/perguntas/chatbot/{{code_user}}', '', 'width=410, height=450')">Chatbot</a> 
 				<!-- Usar # para não usar endereço nenhum. E sim trabalhar com evento OnClick do Link -->
 			</li>
 
@@ -51,7 +51,7 @@
 	<div class="container">
 		<h2>{{titulo}}</h2>
 		<form action="/perguntas/salvarNovo/" method="POST" name="frmPerguntasNovo">{% csrf_token %}
-			<input type="hidden" name="code_user" value="{{perguntas.code_user}}">
+			<input type="hidden" name="code_user" value="{{code_user}}">
 			<div class="form-group">
 				<select class="form-control" name="code_relation" id="code_relation">
 					<option value="0">Relação com a Resposta Anterior</option>
@@ -67,7 +67,7 @@
 
 			<div class="form-group">
 				<label for="answer">Resposta:</label>
-				<textarea class="form-control" rows="5" name="answer id="answer" spellcheck="false">
+				<textarea class="form-control" rows="5" name="answer" id="answer" spellcheck="false">
 
 				</textarea>
 			</div>
@@ -77,7 +77,32 @@
 	</div>
 	<script>
 		const code_relation = document.getElementById('code_relation');
-		code_relation.value = "{{perguntas.code_relation}}";
+
+		try
+		{
+			const _code_relation = parseInt("{{perguntas.code_relation}}");
+			
+			if (_code_relation > 0)
+			{
+				code_relation.value = "{{perguntas.code_relation}}";
+			}
+
+			else
+			{
+				code_relation.value = 0;
+			}
+
+		}
+
+		catch(error)
+		{
+			console.log(error)
+			code_relation.value = 0;
+		}
+
+		const answer = document.getElementById('answer');
+		answer.innerHTML = answer.value.trim();
+
 	</script>
 </body>
 </html>

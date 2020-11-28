@@ -105,10 +105,12 @@
 
 	<br>
 
-	<div style="overflow-y: scroll; height: 300px; width: 100%"; align="center" id="msg">
-		<div class="talk-bubble tri-right left-top" style="width: 90%; background-color: #00aabb;">
-			<div class="talktext">
-				<p>Olá! Em que posso ajudar?</p>
+	<div>
+		<div style="overflow-y: scroll; height: 300px; width: 100%;" align="center" id="msg">
+			<div class="talk-bubble tri-right left-top" style="width: 90%; background-color: #00aabb;">
+				<div class="talktext">
+					<p>Olá! Em que posso ajudar?</p>
+				</div>
 			</div>
 		</div>
 		<input type="text" id="input" class="form-control" onkeypress="return Send(event)" placeholder="Digite a sua mensagem e tecle Enter...">
@@ -145,7 +147,7 @@
 			msgLines = msgLines.replace('<a href="#" id="end">', '');
 
 			const codeUser = Number(code_user.value);
-			const codeBefore = Number(codeBefore.value);
+			const codeBefore = Number(code_before.value);
 
 			const http = new XMLHttpRequest();
 			http.open('GET', `/perguntas/questao/${codeUser}/${codeBefore}/${questionSEND}`, true);
@@ -169,7 +171,7 @@
 							</div>
 						</div>
 
-						<div class="talk-bubble tri-right left-top" style="width: 90%; background-color: #8000ff;">
+						<div class="talk-bubble tri-right left-top" style="width: 90%; background-color: #00aabb;">
 							<div class="talktext">
 								<p>${output}</p>
 							</div>
@@ -185,11 +187,11 @@
 					}
 				}
 			}
-			http.Send();
+			http.send();
 
 		}
 		window.location.href = '#end';
 		document.getElementById('input').focus();
 	</script>
-<body>
+</body>
 </html>

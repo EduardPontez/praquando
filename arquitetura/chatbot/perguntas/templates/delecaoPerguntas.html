@@ -68,20 +68,42 @@
 
 			<div class="form-group">
 				<label for="answer">Resposta:</label>
-				<textarea class="form-control" rows="5" name="answer id="answer" spellcheck="false" disabled="true">
+				<textarea class="form-control" rows="5" name="answer" id="answer" spellcheck="false" disabled="true">
 					{{perguntas.answer}}
 				</textarea>
 			</div>
 			<a href="/perguntas/{{perguntas.code_user}}" class="btn btn-secondary" role="button">Cancelar</a>
-			<button type="submit" class="btn btn-danger">DELETAR</button>
+			<button type="submit" class="btn btn-danger">Confirmar</button>
 		</form>
 	</div>
 	<script>
 		const code_relation = document.getElementById('code_relation');
-		code_relation.value = "{{perguntas.code_relation}}";
+		
+		try
+		{
+			const _code_relation = parseInt("{{perguntas.code_relation}}");
+			
+			if (_code_relation > 0)
+			{
+				code_relation.value = "{{perguntas.code_relation}}";
+			}
+
+			else
+			{
+				code_relation.value = 0;
+			}
+
+		}
+
+		catch(error)
+		{
+			console.log(error)
+			code_relation.value = 0;
+		}
 
 		const answer = document.getElementById('answer');
 		answer.innerHTML = answer.value.trim();
+
 	</script>
 </body>
 </html>
