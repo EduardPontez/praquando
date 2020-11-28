@@ -3,10 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
+
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 	<meta http-equiv='cache-control' content='no-cache'>
 	<meta http-equiv='expires' content='0'>
 	<meta http-equiv='pragma' content='no-cache'>
@@ -51,8 +56,13 @@
 	<div class="container">
 		<h2>{{titulo}}</h2>
 		<div style="overflow: scroll; height: 410px; width: 100%;" align="center">
+
+			<div class="form-group input-group">
+				<input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
+			</div>
 			
-			<table class=table>
+			<table id="tabela" class="table table-hover">
+
 				<thead>
 					<tr>
 						<th>ID</th>
@@ -78,4 +88,9 @@
 		</div>
 	</div>
 </body>
+
+ <script>
+	$('input#txt_consulta').quicksearch('table#tabela tbody tr');
+</script>
+
 </html>

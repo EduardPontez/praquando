@@ -11,6 +11,16 @@
 	<meta http-equiv='expires' content='0'>
 	<meta http-equiv='pragma' content='no-cache'>
 
+	<style> 
+		#container {
+			padding: 10px;
+			box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+		    border-radius: 15px;
+
+		}
+
+	</style>
+
 	<title>Login</title>
 </head>
 <body>
@@ -23,27 +33,45 @@
 		</ul>
 	</nav>
 	<br>
-	<div class="container">
-		<h2 align="center">{{titulo}}</h2>
-		<br>
-		<center>
-			<input type="hidden" id="login" name="login" value="{{login}}">
-			<form action="/usuarios/entrar/" method="POST" name="frmUsuariosLogin">{% csrf_token %}
-				<div align="center" style="width: 30%;">
-					<input type="text" class="form-control" name="user" id="user" placeholder="Nome de Usuário">
+	
+
+
+
+	<div class="container" style="padding: 50px; " id="container">
+ 	
+  		<div class="row">
+   			<div class="col-sm-6"  id="example3">
+	   			<h2 align="center">{{titulo}}</h2>
+	   			<br>
+				<center>
+					<input type="hidden" id="login" name="login" value="{{login}}">
+					<form action="/usuarios/entrar/" method="POST" name="frmUsuariosLogin">{% csrf_token %}
+						<div align="center" style="width: 80%;">
+							<input type="text" class="form-control" name="user" id="user" placeholder="Nome de Usuário">
+							<br>
+							<input type="password" class="form-control" name="password" id="password" placeholder="Senha">
+							<br>
+							<button type="submit" class="btn btn-lg btn-info">Entrar</button>
+						</div>
+					</form>
 					<br>
-					<input type="password" class="form-control" name="password" id="password" placeholder="Senha">
-					<br>
-					<button type="submit" class="btn btn-lg btn-info">Entrar</button>
-				</div>
-			</form>
-		</center>
-		<br>
-		<div class="alert alert-danger alert-dismissible" id="alert" style="display: none;">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<strong>Acesso Negado!</strong> Usuário e/ou senha incorreto(s)
-		</div>
+					<div class="alert alert-danger alert-dismissible" id="alert" style="display: none; width: 80%">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<strong>Acesso Negado!</strong> Usuário e/ou senha incorreto(s)
+					</div>
+				</center>
+    		</div>
+    
+    		<div class="col-sm-6">
+    			<img src="/static/logo.png" alt="HTML5 Icon" style="max-width: 100%; display: block; ">
+    			<br>
+      			<p align="justify"> Seja bem-vindo ao <b>PRAQUANDO</b>, o ChatBot para automatizar suas respostas! Se você é um profissional da educação e já ouviu aquela famosa frase: <i> "professor(a), <b>pra quando</b> é mesmo aquele trabalho?"</i></li>, essa plataforma é para você!</p>
+      			<p align="justify">Configure seus próprios diálogos e integre seu ChatBot em seus materiais, sites e muito mais!</p>
+    		</div>
+  		</div>
 	</div>
+
+
 	<script>
 		const login = document.getElementById('login');
 		const alert = document.getElementById('alert');
