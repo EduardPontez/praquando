@@ -15,37 +15,35 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm bg-dark">
-		<ul class="navbar-nav">
-			
-			<li class="nav-item">
-				<a class="nav-link" href="/home">HOME</a>
-			</li>
+		<div class="container">
+			<ul class="navbar-nav">
 
-			<li class="nav-item">
-				<a class="nav-link" href="/perguntas/{{code_user}}">Cadastro</a>
-			</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/perguntas/{{code_user}}">Cadastro</a>
+				</li>
 
-			<li class="nav-item">
-				<a class="nav-link" href="#" onclick="window.open('http://127.0.0.1.8000/perguntas/chatbot/{{code_user}}', '', 'width=410, height=450')">Chatbot</a> 
-				<!-- Usar # para não usar endereço nenhum. E sim trabalhar com evento OnClick do Link -->
-			</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#" onclick="window.open('http://127.0.0.1.8000/perguntas/chatbot/{{code_user}}', '', 'width=410, height=450')">Chatbot</a> 
+					<!-- Usar # para não usar endereço nenhum. E sim trabalhar com evento OnClick do Link -->
+				</li>
 
-			<li class="nav-item">
-				<a class="nav-link" href="/perguntas/novo/{{code_user}}">Novo</a>
-			</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/perguntas/novo/{{code_user}}">Novo</a>
+				</li>
 
-			<li class="nav-item">
-				<a class="nav-link" href="/capturas/{{code_user}}">Capturas</a>
-			</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/capturas/{{code_user}}">Capturas</a>
+				</li>
 
-			<li class="nav-item">
-				<a class="nav-link" href="/perguntas/api/{{code_user}}">API</a>
-			</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/perguntas/api/{{code_user}}">API</a>
+				</li>
 
-			<li class="nav-item">
-				<a class="nav-link" href="/usuarios/login">Sair</a>
-			</li>
-		</ul>
+				<li class="nav-item">
+					<a class="nav-link" href="/usuarios/login">Sair</a>
+				</li>
+			</ul>
+		</div>
 	</nav>
 	<br>
 	<div class="container">
