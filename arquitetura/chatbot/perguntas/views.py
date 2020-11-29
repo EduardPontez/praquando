@@ -147,11 +147,13 @@ def salvarDelecao(request):
 
 def chatbot(request, code_user):
 	titulo = 'Chatbot'
-	usuario = Usuario.objects.filter(code = code_user)
+	usuario = Usuario.objects.get(code = code_user)
 
-	if len(usuario) > 0:
+	if usuario:
+		exibicao = usuario.name
+		exibicao = exibicao.split(' ', 1)[0]
 		return render(request, 'chatbot.html', 
-					 {'titulo' : titulo, 'code_user' : code_user})
+					 {'titulo' : titulo, 'code_user' : code_user, 'usuario' : exibicao})
 	else:
 		return render(request, 'redirecionar.html', {'code_user' : 0})
 
