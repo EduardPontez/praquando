@@ -331,7 +331,7 @@ def questao(request, code_user, code_before, question):
 		qTemp = qTemp.replace('qd', 'quando')
 		qTemp = qTemp.replace('p', 'para')
 		qTemp = qTemp.replace('mto', 'muito')
-		qTemp = qTemp.replace('fas', 'muito')
+		qTemp = qTemp.replace('fas', 'faz')
 
 		# cria uma lista com query da consulta
 		if len(consulta) <= 0:
@@ -340,7 +340,8 @@ def questao(request, code_user, code_before, question):
 				'code_user' : code_user,
 				'code_before' : code_before,
 				'question' : question,
-				'input' : question
+				'input' : question,
+				'output':'Desculpe, mas não sei informar.'
 
 			})
 		else:
@@ -377,6 +378,7 @@ def questao(request, code_user, code_before, question):
 		# percorre a lista de registros encontrados
 		iguais = 0
 		code = ''
+
 		for x in lista:
 			# remove acentuação e espaços
 			questao_encontrada = unidecode(x['question'])
@@ -387,21 +389,26 @@ def questao(request, code_user, code_before, question):
 			questao_encontrada = questao_encontrada.lower()
 
 			#elimina as três últimas letras de cada palavra com tokenização
-			templ = questao_encontrada.split(' ')
-			temp2 = list()
+			temp3 = questao_encontrada.split(' ')
 
-			for y in templ:
+			temp4 = list()
+
+			for y in temp3:
 				if len(y) > 3:
-					temp2.append(y[0:len(y)-3])
+					temp4.append(y[0:len(y)-3])
 				else:
-					temp2.append(y)
+					temp4.append(y)
 
-			questao_encontrada = ' '.join(temp2)
+			questao_encontrada = ' '.join(temp4)
 
 			#cria uma lista para a questão recebida e uma para a questão encontrada
 			qrList = questao_recebida.split(' ')
 			qeList = questao_encontrada.split(' ')
-
+			
+			#removendo último caractere do útimo elemento da lista de questão encontrada
+			if len(qeList[-1]) > 3: 
+				qeList[-1] = qeList[-1][:-1]
+			
 			#consta as palavras recebidas que coincidem com as palavras de cada questão encontrada
 			qtd = 0
 
@@ -409,11 +416,14 @@ def questao(request, code_user, code_before, question):
 				if y in qeList:
 					qtd += 1
 
-			if qtd >= iguais:
-				iguais = qtd
-				code = x['code_current']
+			if len(qrList) >= len(qeList):
+			  percent = qtd*100//len(qrList)
+			else:
+			  percent = qtd*100//len(qeList)
 
-		
+			if percent >= iguais:
+				iguais = percent
+				code = x['code_current']
 
 		if(iguais == 0):
 			update = {}

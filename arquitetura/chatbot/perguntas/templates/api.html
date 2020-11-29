@@ -16,10 +16,6 @@
 <body>
 	<nav class="navbar navbar-expand-sm bg-dark">
 		<ul class="navbar-nav">
-			
-			<li class="nav-item">
-				<a class="nav-link" href="/home">HOME</a>
-			</li>
 
 			<li class="nav-item">
 				<a class="nav-link" href="/perguntas/{{code_user}}">Cadastro</a>
@@ -51,11 +47,16 @@
 	<div class="container">
 		<h2>{{titulo}}</h2>
 		<p>Copie e cole o código abaixo da tag body do seu aplicativo WEB</p>
-		<textarea class="form-control" rows="10" spellcheck="false">
+		<textarea class="form-control" rows="10" spellcheck="false" disabled="true" id="tag">
 			
 			<a href="#" onclick="window.open('http://127.0.0.1.8000/perguntas/chatbot/{{code_user}}', '', 'width=410, height=450')">Chatbot</a> 
 
 		</textarea>
 	</div>
 </body>
+
+<script>
+			const tag = document.getElementById('tag');
+			tag.innerHTML = tag.value.trim();
+</script>>
 </html>
