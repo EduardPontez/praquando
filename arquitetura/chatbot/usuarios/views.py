@@ -2,7 +2,6 @@ from django.shortcuts import render
 from .models import Usuario
 from django.views.decorators.csrf import csrf_protect
 from perguntas.models import Pergunta
-from capturas.models import Captura
 
 ok = 0
 
@@ -157,7 +156,6 @@ def salvarDelecao(request):
 
 	Usuario.objects.filter(id=id).delete()
 	Pergunta.objects.filter(code_user = code).delete()
-	Captura.objects.filter(code_user = code).delete()
 
 	titulo = 'Cadastro de Usuários'
 	usuarios = Usuario.objects.all()

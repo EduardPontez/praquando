@@ -3,7 +3,6 @@ from .models import Pergunta
 from django.views.decorators.csrf import csrf_protect
 from django.http import JsonResponse
 from unidecode import unidecode
-from capturas.models import Captura
 from usuarios.models import Usuario
 
 codeUser = 0
@@ -173,272 +172,128 @@ def questao(request, code_user, code_before, question):
 	else:
 		consulta = Pergunta.objects.filter(code_user = code_user, active = 1)
 
-	# capturas de informação
-	# idade
-	idade = 0
-	import re
-	if 'anos' in qTemp:
-		idade = qTemp[qTemp.index('anos')-8:qTemp.index('anos')]
-		idade = int(re.sub('[^0-9]', '', idade))
-	else:
-		tokens = qTemp.split(' ')
-		for token in tokens:
-			parts = re.sub('[^0-9]', '', token)
-			if len(parts) >= 1 and len(parts) <=3:
-				idade = int(parts)
-
-	# sexo
-	sexo = ''
-	_qTemp = qTemp.replace(',', '').replace('.', '').replace(';', '').replace('!', '')
-	if ' m ' in _qTemp or 'masculino' in _qTemp:
-		sexo = 'M'
-	elif ' f ' in _qTemp or 'feminino' in _qTemp:
-		sexo = 'F'
-
-	# email
-	#tokenização
-	email = ''
-	tokens = qTemp.split(' ')
-	for token in tokens:
-		if '@' in token and '.' in token:
-			email = token.strip()
-			if email[-1] == '.':
-				email = email[0:-1]
-			email = email.replace(',', '').replace(';', '').replace('!', '')
-
-			# nome
-			emailList = email.split('@')
-			nome = emailList[0]
-
-	# cpf
-	cpf = ''
-	tokens = qTemp.split(' ')
-	for token in tokens:
-		parts = re.sub('[^0-9]', '', token)
-		if len(parts) == 11:
-			from validate_docbr import CPF
-			objCPF = CPF()
-			if objCPF.validate(parts):
-				cpf = parts.strip()
-
-	# cnpj
-	cnpj = ''
-	tokens = qTemp.split(' ')
-	for token in tokens:
-		parts = re.sub('[^0-9]', '', token)
-		if len(parts) == 14:
-			from validate_docbr import CNPJ
-			objCNPJ = CNPJ()
-			if objCNPJ.validate(parts):
-				cnpj = parts.strip()
-
-
-	# telefone celular
-	celular = ''
-	tokens = qTemp.split(' ')
-
-	for token in tokens:
-		parts = re.sub('[^0-9]', '', token)
-		if parts != cpf:
-			if '9' in parts:
-				if len(parts) == 13 or len(parts) == 11 or len(parts) == 9:
-					celular = parts.strip()
-
-	# localidade
-	# cep
-	cep = ''
-	endereco = ''
-	bairro = ''
-	numero = ''
-	estado = ''
-	cidade = ''
-	tokens = qTemp.split(' ')
-	import buscacep
-	for token in tokens:
-		parts = re.sub('[^0-9]', '', token)
-		if len(parts) == 8:
-			try:
-				res = buscacep.busca_cep_correios(parts)
-			except:
-				res = False
-			if res != False:
-				cep = parts.strip()
-				estado = res.localidade[res.localidade.index('/'):].replace('/', '').strip()
-				cidade = res.localidade[:res.localidade.index('/')].strip()
-				bairro = res.bairro.strip()
-				endereco = res.logradouro.strip()
-				numero = re.sub('[^0-9/]', '', res.logradouro)
-	
-
-	# telefone fixo
-	telefone = ''
-	tokens = qTemp.split(' ')
-	for token in tokens:
-		parts = re.sub('[^0-9]', '', token)
-		if parts != cep:
-			if len(parts) == 12 or len(parts) == 10 or len(parts) == 8:
-				telefone = parts.strip()
-
-	# inserção de resultados da captura
-
 	lista = list()
-	if len(email) > 0 or len(celular) > 0 or len(telefone) > 0 or len(cep) > 0 or len(cpf) > 0 or len(cnpj) > 0:
-		code = getCODE()
-		global codeUser
-		code_user = codeUser
-		active = 1
 
-		captura = Captura(
-			code = code,
-			code_user = code_user,
-			active = active,
-			name = nome.upper(),
-			age = idade,
-			sex = sexo.upper(),
-			email = email,
-			cellphone = celular,
-			phone = telefone,
-			cep = cep,
-			state = estado.upper(),
-			city = cidade.upper(),
-			neighborhood = bairro.upper(),
-			address = endereco.upper(),
-			number = numero.upper(),
-			cpf = cpf,
-			cnpj = cnpj
-		)
+	# controle de abreviações
+	qTemp = qTemp.replace('vc', 'voce')
+	qTemp = qTemp.replace('vcs', 'voces')
+	qTemp = qTemp.replace('eh', 'e')
+	qTemp = qTemp.replace('tb', 'tambem')
+	qTemp = qTemp.replace('tbm', 'tambem')
+	qTemp = qTemp.replace('oq', 'o que')
+	qTemp = qTemp.replace('dq', 'de que')
+	qTemp = qTemp.replace('td', 'tudo')
+	qTemp = qTemp.replace('pq', 'por que')
+	qTemp = qTemp.replace('qm', 'quem')
+	qTemp = qTemp.replace('qd', 'quando')
+	qTemp = qTemp.replace('p', 'para')
+	qTemp = qTemp.replace('mto', 'muito')
+	qTemp = qTemp.replace('fas', 'faz')
 
-		captura.save()
-		
+	# cria uma lista com query da consulta
+	if len(consulta) <= 0:
 		lista.append({
 			'code_current' : 0,
 			'code_user' : code_user,
 			'code_before' : code_before,
 			'question' : question,
 			'input' : question,
-			'output' : 'Ok, entendi'
+			'output':'Desculpe, mas não sei informar.'
+
 		})
 	else:
-		# controle de abreviações
-		qTemp = qTemp.replace('vc', 'voce')
-		qTemp = qTemp.replace('vcs', 'voces')
-		qTemp = qTemp.replace('eh', 'e')
-		qTemp = qTemp.replace('tb', 'tambem')
-		qTemp = qTemp.replace('tbm', 'tambem')
-		qTemp = qTemp.replace('oq', 'o que')
-		qTemp = qTemp.replace('dq', 'de que')
-		qTemp = qTemp.replace('td', 'tudo')
-		qTemp = qTemp.replace('pq', 'por que')
-		qTemp = qTemp.replace('qm', 'quem')
-		qTemp = qTemp.replace('qd', 'quando')
-		qTemp = qTemp.replace('p', 'para')
-		qTemp = qTemp.replace('mto', 'muito')
-		qTemp = qTemp.replace('fas', 'faz')
-
-		# cria uma lista com query da consulta
-		if len(consulta) <= 0:
+		for x in consulta:
 			lista.append({
-				'code_current' : 0,
-				'code_user' : code_user,
+				'code_current' : x.code,
+				'code_user' : x.code_user,
 				'code_before' : code_before,
-				'question' : question,
+				'question' : x.question,
 				'input' : question,
-				'output':'Desculpe, mas não sei informar.'
-
+				'output' : x.answer
 			})
+				
+	# remove acentuação e espaços
+	questao_recebida = unidecode(question)
+	questao_recebida.replace('?', '')
+	questao_recebida = questao_recebida.strip()
+
+	# coloca em minúsculas
+	questao_recebida = questao_recebida.lower()
+
+	#elimina as três últimas letras de cada palavra com tokenização
+	templ = questao_recebida.split(' ')
+	temp2 = list()
+
+	for x in templ:
+		if len(x) > 3:
+			temp2.append(x[0:len(x)-3])
 		else:
-			for x in consulta:
-				lista.append({
-					'code_current' : x.code,
-					'code_user' : x.code_user,
-					'code_before' : code_before,
-					'question' : x.question,
-					'input' : question,
-					'output' : x.answer
-				})
-					
+			temp2.append(x)
+
+	questao_recebida = ' '.join(temp2)
+
+	# percorre a lista de registros encontrados
+	iguais = 0
+	code = ''
+
+	for x in lista:
 		# remove acentuação e espaços
-		questao_recebida = unidecode(question)
-		questao_recebida.replace('?', '')
-		questao_recebida = questao_recebida.strip()
+		questao_encontrada = unidecode(x['question'])
+		questao_encontrada.replace('?', '')
+		questao_encontrada = questao_encontrada.strip()
 
 		# coloca em minúsculas
-		questao_recebida = questao_recebida.lower()
+		questao_encontrada = questao_encontrada.lower()
 
 		#elimina as três últimas letras de cada palavra com tokenização
-		templ = questao_recebida.split(' ')
-		temp2 = list()
+		temp3 = questao_encontrada.split(' ')
 
-		for x in templ:
-			if len(x) > 3:
-				temp2.append(x[0:len(x)-3])
+		temp4 = list()
+
+		for y in temp3:
+			if len(y) > 3:
+				temp4.append(y[0:len(y)-3])
 			else:
-				temp2.append(x)
+				temp4.append(y)
 
-		questao_recebida = ' '.join(temp2)
+		questao_encontrada = ' '.join(temp4)
 
-		# percorre a lista de registros encontrados
-		iguais = 0
-		code = ''
+		#cria uma lista para a questão recebida e uma para a questão encontrada
+		qrList = questao_recebida.split(' ')
+		qeList = questao_encontrada.split(' ')
+		
+		#removendo último caractere do útimo elemento da lista de questão encontrada
+		if len(qeList[-1]) > 3: 
+			qeList[-1] = qeList[-1][:-1]
+		
+		#consta as palavras recebidas que coincidem com as palavras de cada questão encontrada
+		qtd = 0
 
-		for x in lista:
-			# remove acentuação e espaços
-			questao_encontrada = unidecode(x['question'])
-			questao_encontrada.replace('?', '')
-			questao_encontrada = questao_encontrada.strip()
+		for y in qrList:
+			if y in qeList:
+				qtd += 1
 
-			# coloca em minúsculas
-			questao_encontrada = questao_encontrada.lower()
+		if len(qrList) >= len(qeList):
+		  percent = qtd*100//len(qrList)
+		else:
+		  percent = qtd*100//len(qeList)
 
-			#elimina as três últimas letras de cada palavra com tokenização
-			temp3 = questao_encontrada.split(' ')
+		if percent >= iguais:
+			iguais = percent
+			code = x['code_current']
 
-			temp4 = list()
-
-			for y in temp3:
-				if len(y) > 3:
-					temp4.append(y[0:len(y)-3])
-				else:
-					temp4.append(y)
-
-			questao_encontrada = ' '.join(temp4)
-
-			#cria uma lista para a questão recebida e uma para a questão encontrada
-			qrList = questao_recebida.split(' ')
-			qeList = questao_encontrada.split(' ')
-			
-			#removendo último caractere do útimo elemento da lista de questão encontrada
-			if len(qeList[-1]) > 3: 
-				qeList[-1] = qeList[-1][:-1]
-			
-			#consta as palavras recebidas que coincidem com as palavras de cada questão encontrada
-			qtd = 0
-
-			for y in qrList:
-				if y in qeList:
-					qtd += 1
-
-			if len(qrList) >= len(qeList):
-			  percent = qtd*100//len(qrList)
-			else:
-			  percent = qtd*100//len(qeList)
-
-			if percent >= iguais:
-				iguais = percent
-				code = x['code_current']
-
-		if(iguais == 0):
-			update = {}
-			update = {'output':'Desculpe, mas não sei informar.'}
-			lista = [{**d,**update} for d in lista]
-			
-		# deixa na lista somente a resposta correspondente
-		correspondente = list()
-		for x in lista:
-			if code == x['code_current']:
-				correspondente.append(x)
-				break
-		lista = correspondente
+	if(iguais == 0):
+		update = {}
+		update = {'output':'Desculpe, mas não sei informar.'}
+		lista = [{**d,**update} for d in lista]
+		
+	# deixa na lista somente a resposta correspondente
+	correspondente = list()
+	for x in lista:
+		if code == x['code_current']:
+			correspondente.append(x)
+			break
+	lista = correspondente
 
 	return JsonResponse(lista, safe=False) 
 
