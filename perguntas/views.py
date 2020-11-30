@@ -216,6 +216,8 @@ def questao(request, code_user, code_before, question):
 	# remove acentuação e espaços
 	questao_recebida = unidecode(question)
 	questao_recebida.replace('?', '')
+	questao_recebida.replace('!', '')
+	questao_recebida.replace('-', '')
 	questao_recebida = questao_recebida.strip()
 
 	# coloca em minúsculas
@@ -241,6 +243,8 @@ def questao(request, code_user, code_before, question):
 		# remove acentuação e espaços
 		questao_encontrada = unidecode(x['question'])
 		questao_encontrada.replace('?', '')
+		questao_encontrada.replace('!', '')
+		questao_encontrada.replace('-', '')
 		questao_encontrada = questao_encontrada.strip()
 
 		# coloca em minúsculas
