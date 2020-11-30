@@ -47,10 +47,6 @@ def entrar(request):
 				code_user = x.code
 			return render(request, 'entrando.html', {'code_user' : code_user})
 		else:
-			print('User digitado: ' + user)
-			print('User do ENV: ' + super_user)
-			print('Senha digitada: ' + password)
-			print('Senha do ENV: ' + super_pass)
 			titulo = 'LOGIN'
 			return render(request, 'login.html', 
 		                 {'titulo' : titulo, 'login' : 1})
