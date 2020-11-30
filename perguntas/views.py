@@ -219,6 +219,7 @@ def questao(request, code_user, code_before, question):
 	questao_recebida = questao_recebida.replace('?', '')
 	questao_recebida = questao_recebida.replace('!', '')
 	questao_recebida = questao_recebida.replace('-', '')
+	questao_recebida = questao_recebida.replace(',', '')
 	questao_recebida = questao_recebida.strip()
 
 	# coloca em minúsculas
@@ -246,6 +247,7 @@ def questao(request, code_user, code_before, question):
 		questao_encontrada = questao_encontrada.replace('?', '')
 		questao_encontrada = questao_encontrada.replace('!', '')
 		questao_encontrada = questao_encontrada.replace('-', '')
+		questao_encontrada = questao_encontrada.replace(',', '')
 		questao_encontrada = questao_encontrada.strip()
 
 		# coloca em minúsculas
