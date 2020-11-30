@@ -190,6 +190,7 @@ def questao(request, code_user, code_before, question):
 	qTemp = qTemp.replace('p', 'para')
 	qTemp = qTemp.replace('mto', 'muito')
 	qTemp = qTemp.replace('fas', 'faz')
+	qTemp = qTemp.replace('teu', 'seu')
 
 	# cria uma lista com query da consulta
 	if len(consulta) <= 0:
@@ -200,8 +201,8 @@ def questao(request, code_user, code_before, question):
 			'question' : question,
 			'input' : question,
 			'output':'Desculpe, mas não sei informar.'
-
 		})
+
 	else:
 		for x in consulta:
 			lista.append({
@@ -215,9 +216,9 @@ def questao(request, code_user, code_before, question):
 				
 	# remove acentuação e espaços
 	questao_recebida = unidecode(question)
-	questao_recebida.replace('?', '')
-	questao_recebida.replace('!', '')
-	questao_recebida.replace('-', '')
+	questao_recebida = questao_recebida.replace('?', '')
+	questao_recebida = questao_recebida.replace('!', '')
+	questao_recebida = questao_recebida.replace('-', '')
 	questao_recebida = questao_recebida.strip()
 
 	# coloca em minúsculas
@@ -242,9 +243,9 @@ def questao(request, code_user, code_before, question):
 	for x in lista:
 		# remove acentuação e espaços
 		questao_encontrada = unidecode(x['question'])
-		questao_encontrada.replace('?', '')
-		questao_encontrada.replace('!', '')
-		questao_encontrada.replace('-', '')
+		questao_encontrada = questao_encontrada.replace('?', '')
+		questao_encontrada = questao_encontrada.replace('!', '')
+		questao_encontrada = questao_encontrada.replace('-', '')
 		questao_encontrada = questao_encontrada.strip()
 
 		# coloca em minúsculas
@@ -252,12 +253,12 @@ def questao(request, code_user, code_before, question):
 
 		#elimina as três últimas letras de cada palavra com tokenização
 		temp3 = questao_encontrada.split(' ')
-
 		temp4 = list()
 
 		for y in temp3:
 			if len(y) > 3:
 				temp4.append(y[0:len(y)-3])
+
 			else:
 				temp4.append(y)
 
@@ -266,10 +267,6 @@ def questao(request, code_user, code_before, question):
 		#cria uma lista para a questão recebida e uma para a questão encontrada
 		qrList = questao_recebida.split(' ')
 		qeList = questao_encontrada.split(' ')
-		
-		#removendo último caractere do útimo elemento da lista de questão encontrada
-		if len(qeList[-1]) > 3: 
-			qeList[-1] = qeList[-1][:-1]
 		
 		#consta as palavras recebidas que coincidem com as palavras de cada questão encontrada
 		qtd = 0
