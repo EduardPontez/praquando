@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Usuario
 from django.views.decorators.csrf import csrf_protect
 from perguntas.models import Pergunta
+from django.conf import settings
 
 ok = 0
 
@@ -21,9 +22,17 @@ def entrar(request):
 	user = user.strip()
 	password = password.strip()
 
+	super_user = settings.SUPERUSER
+	super_pass = settings.PASSWORD
+
+	super_user = super_user.strip()
+	super_pass = super_pass.strip()
+
+
+
 
 	# super usuário (administrador do sistema)
-	if user == 'praquando' and password == 'praquandoappadmin':
+	if (user == super_user) and (password == super_pass):
 		global ok
 		ok = 1
 		titulo = 'Cadastro de Usuários'
@@ -38,6 +47,10 @@ def entrar(request):
 				code_user = x.code
 			return render(request, 'entrando.html', {'code_user' : code_user})
 		else:
+			print('User digitado: ' + user)
+			print('User do ENV: ' + super_user)
+			print('Senha digitada: ' + password)
+			print('Senha do ENV: ' + super_pass)
 			titulo = 'LOGIN'
 			return render(request, 'login.html', 
 		                 {'titulo' : titulo, 'login' : 1})
