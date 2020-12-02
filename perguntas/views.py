@@ -187,10 +187,18 @@ def questao(request, code_user, code_before, question):
 	qTemp = qTemp.replace('pq', 'por que')
 	qTemp = qTemp.replace('qm', 'quem')
 	qTemp = qTemp.replace('qd', 'quando')
-	qTemp = qTemp.replace('p', 'para')
+	qTemp = qTemp.replace('p/', 'para')
 	qTemp = qTemp.replace('mto', 'muito')
 	qTemp = qTemp.replace('fas', 'faz')
 	qTemp = qTemp.replace('teu', 'seu')
+	qTemp = qTemp.replace('qualé', 'qual é')
+	qTemp = qTemp.replace('qualé', 'qual é')
+	qTemp = qTemp.replace('prof', 'professor')
+	qTemp = qTemp.replace('profº', 'professor')
+	qTemp = qTemp.replace('profª', 'professor')
+	qTemp = qTemp.replace('psor', 'professor')
+	qTemp = qTemp.replace('tao', 'estão')
+	qTemp = qTemp.replace('ta', 'está')
 
 	# cria uma lista com query da consulta
 	if len(consulta) <= 0:
