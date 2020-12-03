@@ -12,3 +12,5 @@ Este repositório é um projeto em computação aplicada da Universidade Nove de
 A plataforma **Praquando Chatbot**, que visa principalmente profissionais da área da educação, sistemas de ensino e atendimento ao cliente dispõe ao usuário que personalize seu próprio Chatbot e automatize seus diálogos ao seu gosto.
 
 A plataforma foi desenvolvida com o **Framwork Django** e utilizando conceitos **Linguagem de Processamento Natural** no melhor grau de assertividade para os diálogos já cadastrados pelo usuário.
+
+A lista de todas as dependências de módulos Python para rodar localmente encontra-se no arquivo requirements.txt.
