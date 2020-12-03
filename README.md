@@ -1,4 +1,4 @@
-![](https://uploaddeimagens.com.br/images/002/988/127/original/logo.png?1606979474)
+![](https://lh3.googleusercontent.com/pw/ACtC-3dse5l1FCziTJJHmTiSTv5ZGNCUv_6PRyWMIgo57KGXvndaScIUcwRjeUsqSaF7D8JIVEZXEdRRW5YfVwy_80p313ng7nbvIVL4Rr1PxLrWJIW7m0mpuZE45_hAsnTCEyopBMQbEQoRiqbizrmtJ18R=w1022-h332-no?authuser=0)
 # Bem-vindo ao Praquando Chatbot!
 
 Acesso a plataforma: https://praquando.herokuapp.com/
